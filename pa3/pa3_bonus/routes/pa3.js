@@ -12,9 +12,19 @@ const router = Router();
 
 // Create
 router.post('/trails', async (req, res) => {
-  const values = req.body;
+  const {
+    name,
+    length,
+    elevation,
+    description,
+    image_url,
+    location_id,
+    difficulty_id,
+  } = req.body;
 
-  const result = await db.execute(CREATE_TRAIL, [...Object.values(values)]);
+  const queryValues = [name, length, elevation, description, image_url, location_id, difficulty_id];
+
+  const result = await db.execute(CREATE_TRAIL, queryValues);
 
   res.json(result[0]);
 });
